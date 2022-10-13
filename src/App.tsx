@@ -9,11 +9,7 @@ function App() {
   const [timeRunning, setTimeRunning] = React.useState(false);
 
   const startHandler = () => {
-    setTimeRunning(true);
-  };
-
-  const stopHandler = () => {
-    setTimeRunning(false);
+    setTimeRunning(!timeRunning);
   };
 
   React.useEffect(() => {
@@ -21,17 +17,28 @@ function App() {
       setInterval(() => {
         setSec(sec + 1);
       }, 1000);
+      setInterval(() => {
+        setMin(min + 1);
+      }, 60000);
+      setInterval(() => {
+        setHour(hour + 1);
+      }, 3600000);
+      setInterval(() => {
+        setDay(day + 1);
+      }, 86400000);
     }
-  }, [sec, timeRunning]);
+  }, [sec, min, hour, day, timeRunning]);
 
   return (
     <div className="App">
       <div>
         <p>
+          {day ? `":" ${day}` : ""}
+          {hour ? `":" ${hour}` : ""}
           {min}:{sec}
         </p>
         <button onClick={startHandler}>START</button>
-        <button onClick={stopHandler}>STOP</button>
+        <button onClick={startHandler}>STOP</button>
       </div>
     </div>
   );
