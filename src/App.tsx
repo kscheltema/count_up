@@ -6,15 +6,26 @@ function App() {
   const [min, setMin] = React.useState(0);
   const [hour, setHour] = React.useState(0);
   const [day, setDay] = React.useState(0);
+  const [timeRunning, setTimeRunning] = React.useState(false);
 
   const timeHandler = () => {
-    setSec(sec + 1);
+    setTimeRunning(!timeRunning);
   };
+
+  React.useEffect(() => {
+    if (timeRunning) {
+      setInterval(() => {
+        setSec(sec + 1);
+      }, 1000);
+    }
+  }, [sec, timeRunning]);
 
   return (
     <div className="App">
       <div>
-        <p>{sec}</p>
+        <p>
+          {min}:{sec}
+        </p>
         <button onClick={timeHandler}>START</button>
         <button onClick={timeHandler}>STOP</button>
       </div>
