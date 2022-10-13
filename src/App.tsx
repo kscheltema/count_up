@@ -8,8 +8,12 @@ function App() {
   const [day, setDay] = React.useState(0);
   const [timeRunning, setTimeRunning] = React.useState(false);
 
-  const timeHandler = () => {
-    setTimeRunning(!timeRunning);
+  const startHandler = () => {
+    setTimeRunning(true);
+  };
+
+  const stopHandler = () => {
+    setTimeRunning(false);
   };
 
   React.useEffect(() => {
@@ -26,8 +30,8 @@ function App() {
         <p>
           {min}:{sec}
         </p>
-        <button onClick={timeHandler}>START</button>
-        <button onClick={timeHandler}>STOP</button>
+        <button onClick={startHandler}>START</button>
+        <button onClick={stopHandler}>STOP</button>
       </div>
     </div>
   );
