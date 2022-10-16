@@ -2,32 +2,35 @@ import React from "react";
 import "./App.css";
 
 function App() {
-  const [sec, setSec] = React.useState(0);
-  const [min, setMin] = React.useState(0);
-  const [hour, setHour] = React.useState(0);
-  const [day, setDay] = React.useState(0);
+  const [[day, hour, min, sec], setTime] = React.useState([0, 0, 0, 0]);
   const [timeRunning, setTimeRunning] = React.useState(false);
 
-  const startHandler = () => {
+  const runHandler = () => {
     setTimeRunning(!timeRunning);
   };
 
-  React.useEffect(() => {
-    if (timeRunning) {
-      setInterval(() => {
-        setSec(sec + 1);
-      }, 1000);
-      setInterval(() => {
-        setMin(min + 1);
-      }, 60000);
-      setInterval(() => {
-        setHour(hour + 1);
-      }, 3600000);
-      setInterval(() => {
-        setDay(day + 1);
-      }, 86400000);
+  const resetHandler = () => {
+    setTime([0, 0, 0, 0]);
+  };
+
+  const tick = React.useCallback(() => {
+    if (day === 0 && hour === 0 && min === 0 && sec === 0) {
+      resetHandler();
+    } else if (hour === 0 && min === 0 && sec === 0) {
+      setTime([day + 1, hour, min, sec]);
+    } else if (min === 0 && sec === 0) {
+      setTime([day, hour + 1, min, sec]);
+    } else if (sec === 0) {
+      setTime([day, hour, min + 1, sec]);
+    } else {
+      setTime([day, hour, min, sec + 1]);
     }
-  }, [sec, min, hour, day, timeRunning]);
+  }, [day, hour, min, sec]);
+
+  React.useEffect(() => {
+    const timerID = setInterval(() => tick(), 1000);
+    return () => clearInterval(timerID);
+  }, [tick]);
 
   return (
     <div className="App">
@@ -37,8 +40,8 @@ function App() {
           {hour ? `":" ${hour}` : ""}
           {min}:{sec}
         </p>
-        <button onClick={startHandler}>START</button>
-        <button onClick={startHandler}>STOP</button>
+        <button onClick={runHandler}>RUN</button>
+        <button onClick={resetHandler}>RESET</button>
       </div>
     </div>
   );
