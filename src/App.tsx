@@ -17,20 +17,25 @@ function App() {
     if (day === 0 && hour === 0 && min === 0 && sec === 0) {
       resetHandler();
     } else if (hour === 0 && min === 0 && sec === 0) {
-      setTime([day + 1, hour, min, sec]);
+      setTime(() => [day + 1, hour, min, sec]);
     } else if (min === 0 && sec === 0) {
-      setTime([day, hour + 1, min, sec]);
+      setTime(() => [day, hour + 1, min, sec]);
     } else if (sec === 0) {
-      setTime([day, hour, min + 1, sec]);
+      setTime(() => [day, hour, min + 1, sec]);
     } else {
-      setTime([day, hour, min, sec + 1]);
+      setTime(() => [day, hour, min, sec + 1]);
     }
   }, [day, hour, min, sec]);
 
   React.useEffect(() => {
-    const timerID = setInterval(() => tick(), 1000);
-    return () => clearInterval(timerID);
-  }, [tick]);
+    if (timeRunning) {
+      setInterval(() => tick(), 1000);
+      console.log(tick, timeRunning);
+    } else {
+      console.log(tick, timeRunning);
+      resetHandler();
+    }
+  }, [tick, timeRunning]);
 
   return (
     <div className="App">
