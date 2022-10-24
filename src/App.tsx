@@ -1,4 +1,4 @@
-import CountUp from "./components/CountUp";
+import CountUp from "./components/old/CountUp";
 
 function App() {
   return (
