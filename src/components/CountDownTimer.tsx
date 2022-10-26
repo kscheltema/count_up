@@ -3,11 +3,11 @@ import { useCountDown } from "../hooks/useCountDown";
 import Message from "./Message";
 import ShowCount from "./ShowCount";
 
-interface CountDate {
+interface OwnProps {
   targetDate: any;
 }
 
-const CountDownTimer: CountDate = ({ targetDate }) => {
+const CountDownTimer: React.FC<OwnProps> = ({ targetDate }) => {
   const [days, hours, min, sec] = useCountDown(targetDate);
 
   if (days + hours + min + sec <= 0) {
