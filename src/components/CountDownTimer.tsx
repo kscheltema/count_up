@@ -4,10 +4,10 @@ import Message from "./Message";
 import ShowCount from "./ShowCount";
 
 interface CountDate {
-  countDate: { targetDate: Date };
+  targetDate: any;
 }
 
-const CountDownTimer = ({ targetDate }): Record<Date, CountDate> => {
+const CountDownTimer: CountDate = ({ targetDate }) => {
   const [days, hours, min, sec] = useCountDown(targetDate);
 
   if (days + hours + min + sec <= 0) {
