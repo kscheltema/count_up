@@ -25,7 +25,7 @@ const useCountDown = (targetDate: string) => {
       setCountDown(countDownTime - Date.now());
     }, 1000);
     return () => clearInterval(interval);
-  }, [countDownTime, countDownDate]);
+  }, [countDownTime]);
 
   return getReturnValues(countDown);
   //you were missing this curly bracket which caused the issue below.
