@@ -2,10 +2,10 @@ import React from "react";
 import "./App.css";
 import CountDownTimer from "./components/CountDownTimer";
 
-function App() {
+function App(targetDate: string) {
   return (
     <div className="App">
-      <CountDownTimer />
+      <CountDownTimer targetDate={targetDate} />
     </div>
   );
 }
