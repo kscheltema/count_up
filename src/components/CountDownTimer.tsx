@@ -3,10 +3,18 @@ import { useCountDown } from "../hooks/useCountDown";
 import ShowCount from "./ShowCount";
 import Flash from "./Flash";
 
-const CountDownTimer: React.FC<unknown> = ({ targetDate }) => {
-  const [days, hours, minutes, seconds] = useCountDown<number>(targetDate);
+type OwnProps = {
+  targetDate: string;
+};
 
-  days + hours + minutes + seconds <= 0 ? <Flash /> : <ShowCount />;
+const CountDownTimer: React.FC<OwnProps> = ({ targetDate }) => {
+  const [days, hours, minutes, seconds] = useCountDown(targetDate);
+
+  if (days + hours + minutes + seconds <= 0) {
+    return <Flash />;
+  } else {
+    return <ShowCount />;
+  }
 };
 
 export default CountDownTimer;
